@@ -11,7 +11,7 @@ The client component (front-end) of your website will user JavaScript
 to allow you to accept and process user input. We will use JUnit to test
 the server code and introduce continuous integration using [Travis CI][travis].
 
-Your specific tasks for this lab can be found in the [LABTASKS.md][labtasks] file in this repository.
+Your specific tasks for this lab can be found in the [LABTASKS.md][labtasks] file in this repository..
 
 ## Overview of the project
 

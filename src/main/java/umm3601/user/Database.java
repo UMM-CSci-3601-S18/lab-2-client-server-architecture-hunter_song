@@ -9,7 +9,7 @@ import java.util.Map;
 
 /**
  * A fake "database" of user info
- *
+ *Users
  * Since we don't want to complicate this lab with a real database,
  * we're going to instead just read a bunch of user data from a
  * specified JSON file, and then provide various database-like

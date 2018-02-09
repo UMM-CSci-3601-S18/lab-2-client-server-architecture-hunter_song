@@ -3,8 +3,9 @@ package umm3601;
 import spark.Filter;
 import spark.Request;
 import spark.Response;
-import umm3601.user.Database;
-import umm3601.user.UserController;
+import umm3601.todo.Database;
+import umm3601.todo.Todo;
+import umm3601.todo.TodoController;
 
 import java.io.IOException;
 
@@ -13,13 +14,13 @@ import static spark.debug.DebugScreen.*;
 
 public class Server {
 
-  public static final String USER_DATA_FILE = "src/main/data/users.json";
-  private static Database userDatabase;
+  public static final String TODO_DATA_FILE = "src/main/data/todos.json";
+  private static Database todoDatabase;
 
   public static void main(String[] args) {
 
     // Initialize dependencies
-    UserController userController = buildUserController();
+    TodoController todoController = buildUserController();
 
     // Configure Spark
     port(4567);
@@ -28,19 +29,27 @@ public class Server {
     enableDebugScreen();
 
     // Simple example route
-    get("/hello", (req, res) -> "Hello World");
+    //get("/hello", (req, res) -> "Hello World");
 
     // Redirects to create simpler URLs
-    redirect.get("/about", "/about.html");
-    redirect.get("/users", "/users.html");
+    //redirect.get("/about", "/about.html");
+    //redirect.get("/users", "/users.html");
 
     // API endpoints
 
     // Get specific user
-    get("api/users/:id", userController::getUser);
+    get("api/todos/:id", todoController::getToDo);
     // List users, filtered using query parameters
-    get("api/users", userController::getUsers);
+    get("api/todos", todoController::getToDos);
 
+    /*
+    // List a specified limit of todos the server returns
+    get("api/todos?limit=7", TodoController::getUsers);
+    // List todos that are filtered by true only
+    get("api/todos?status=complete", TodoController::getUsers);
+    // List todos containing a specified string
+    get("api/todos?contains=banana", TodoController::getUsers);
+*/
     // An example of throwing an unhandled exception so you can see how the
     // Java Spark debugger displays errors like this.
     get("api/error", (req, res) -> {
@@ -65,12 +74,12 @@ public class Server {
    * the server down.
    * @throws IOException if we can't open or read the user data file
    */
-  private static UserController buildUserController() {
-    UserController userController = null;
+  private static TodoController buildUserController() {
+    TodoController todoController = null;
 
     try {
-      userDatabase = new Database(USER_DATA_FILE);
-      userController = new UserController(userDatabase);
+      todoDatabase = new Database(TODO_DATA_FILE);
+      todoController = new TodoController(todoDatabase);
     } catch (IOException e) {
       System.err.println("The server failed to load the user data; shutting down.");
       e.printStackTrace(System.err);
@@ -80,7 +89,7 @@ public class Server {
       System.exit(1);
     }
 
-    return userController;
+    return todoController;
   }
 
   // Enable GZIP for all responses

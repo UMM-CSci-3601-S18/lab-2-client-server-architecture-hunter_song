@@ -176,7 +176,7 @@ Once the story passes review, you should
 :warning: Our descriptions below tend to treat the server modifications
 as separate from the client updates. This is generally _not_ how you'd
 want to write stories, as you want your stories to slice all the way
-through the cake, from the UI through to the server (and possibly database,
+through the cake, from the UI through to the server (and possibly toDoDatabase,
 etc.) and back to the UI.
 
 So when you create and estimates stories for your ZenHub board, try to

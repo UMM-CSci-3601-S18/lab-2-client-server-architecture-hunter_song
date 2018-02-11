@@ -8,7 +8,7 @@ import java.util.HashMap;
 import static org.junit.Assert.assertEquals;
 
 /**
- * Tests umm3601.user.Database listUser functionality
+ * Tests umm3601.user.ToDoDatabase listUser functionality
  */
 public class FullUserListFromDB {
 

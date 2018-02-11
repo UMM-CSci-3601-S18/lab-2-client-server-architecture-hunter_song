@@ -3,8 +3,7 @@ package umm3601;
 import spark.Filter;
 import spark.Request;
 import spark.Response;
-import umm3601.todo.Database;
-import umm3601.todo.Todo;
+import umm3601.todo.ToDoDatabase;
 import umm3601.todo.TodoController;
 
 import java.io.IOException;
@@ -15,7 +14,7 @@ import static spark.debug.DebugScreen.*;
 public class Server {
 
   public static final String TODO_DATA_FILE = "src/main/data/todos.json";
-  private static Database todoDatabase;
+  private static ToDoDatabase todoToDoDatabase;
 
   public static void main(String[] args) {
 
@@ -78,8 +77,8 @@ public class Server {
     TodoController todoController = null;
 
     try {
-      todoDatabase = new Database(TODO_DATA_FILE);
-      todoController = new TodoController(todoDatabase);
+      todoToDoDatabase = new ToDoDatabase(TODO_DATA_FILE);
+      todoController = new TodoController(todoToDoDatabase);
     } catch (IOException e) {
       System.err.println("The server failed to load the user data; shutting down.");
       e.printStackTrace(System.err);

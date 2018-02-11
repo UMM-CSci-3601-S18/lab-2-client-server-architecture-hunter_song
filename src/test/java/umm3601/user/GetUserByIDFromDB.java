@@ -7,7 +7,7 @@ import java.io.IOException;
 import static junit.framework.TestCase.assertEquals;
 
 /**
- * Tests umm3601.user.Database getUser functionality
+ * Tests umm3601.user.ToDoDatabase getUser functionality
  */
 public class GetUserByIDFromDB {
 

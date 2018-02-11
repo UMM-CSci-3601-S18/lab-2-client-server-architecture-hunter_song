@@ -37,6 +37,12 @@ public class ToDoDatabase {
     return Arrays.stream(allTodos).filter(x -> x._id.equals(id)).findFirst().orElse(null);
   }
 
+  public Todo[] OrderedTodos(Todo[] filteredTodos){
+    Todo[] orderedTodos = filteredTodos;
+    
+    return orderedTodos;
+  }
+
   /**
    * Get an array of all the users satisfying the queries in the params.
    *
@@ -85,9 +91,6 @@ public class ToDoDatabase {
       String keywords = queryParams.get("contains")[0];
       filteredTodos = filteredKeywords(filteredTodos,keywords);
     }
-
-    // Sort an array by alphabetical order
-    
 
     return filteredTodos;
   }
@@ -140,5 +143,9 @@ public class ToDoDatabase {
   public Todo[] filteredKeywords(Todo[] todos, String keywords){
     return Arrays.stream(todos).filter(x -> x.body.contains(keywords)).toArray(Todo[]::new);
   }
+
+
+
+
 
 }

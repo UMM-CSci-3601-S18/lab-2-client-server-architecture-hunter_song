@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Map;
 
 /**
@@ -37,11 +38,7 @@ public class ToDoDatabase {
     return Arrays.stream(allTodos).filter(x -> x._id.equals(id)).findFirst().orElse(null);
   }
 
-  public Todo[] OrderedTodos(Todo[] filteredTodos){
-    Todo[] orderedTodos = filteredTodos;
-    
-    return orderedTodos;
-  }
+
 
   /**
    * Get an array of all the users satisfying the queries in the params.
@@ -92,7 +89,48 @@ public class ToDoDatabase {
       filteredTodos = filteredKeywords(filteredTodos,keywords);
     }
 
+    // Sorts the returned to-dos alphabetically
+    if(queryParams.containsKey("orderBy")){
+      if(queryParams.get("orderBy")[0] == "owner"){ //sorted by owner
+        Arrays.sort(filteredTodos, new TodoByOwner());
+      }
+      if(queryParams.get("orderBy")[0] == "body"){ //sorted by body
+        Arrays.sort(filteredTodos, new TodoByBody());
+      }
+      if(queryParams.get("orderBy")[0] == "status"){ //sorted by status
+        Arrays.sort(filteredTodos, new TodoByStatus());
+      }
+      if(queryParams.get("orderBy")[0] == "category"){ //sorted by category
+        Arrays.sort(filteredTodos, new TodoByCategory());
+      }
+    }
+
     return filteredTodos;
+  }
+
+  /**
+   * create classes for sorting
+   */
+  class TodoByOwner implements Comparator<Todo>{
+    public int compare(Todo todo1, Todo todo2){
+      return todo1.owner.compareTo(todo2.owner);
+    }
+  }
+
+  class TodoByBody implements Comparator<Todo>{
+    public int compare(Todo todo1, Todo todo2){
+      return todo1.body.compareTo(todo2.body);
+    }
+  }
+  class TodoByStatus implements Comparator<Todo>{
+    public int compare(Todo todo1, Todo todo2){
+      return Boolean.valueOf(todo1.status).compareTo(Boolean.valueOf(todo2.status));
+    }
+  }
+  class TodoByCategory implements Comparator<Todo>{
+    public int compare(Todo todo1, Todo todo2){
+      return todo1.category.compareTo(todo2.category);
+    }
   }
 
 

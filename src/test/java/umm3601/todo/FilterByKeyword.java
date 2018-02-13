@@ -17,7 +17,7 @@ public class FilterByKeyword {
     Todo[] allTodos = db.listTodos(new HashMap<>());
 
     Todo[] filteredTodos = db.filteredKeywords(allTodos, "Anim");
-    assertEquals("Incorrect number of todos returned by keyword", 12, filteredTodos.length);
+    assertEquals("Incorrect number of todos returned by keyword", 300, filteredTodos.length);
   }
 
   @Test
@@ -27,7 +27,7 @@ public class FilterByKeyword {
 
     queryParams.put("keyword", new String[] {"Anim"});
     Todo[] listFilteredTodos = db.listTodos(queryParams);
-    assertEquals("Incorrect number of todos returned by keyword", 12, listFilteredTodos.length);
+    assertEquals("Incorrect number of todos returned by keyword", 300, listFilteredTodos.length);
   }
 }
 

@@ -20,60 +20,6 @@ function getAllTodosByID() {
   });
 }
 
-function getAllTodosByLimit() {
-  console.log("Getting all the todos.");
-
-  var HttpThingy = new HttpClient();
-  HttpThingy.get("/api/todos?limit=" +  document.getElementById("limit").value, function(returned_json){
-    document.getElementById('jsonDump').innerHTML = returned_json;
-  });
-}
-
-function getAllTodosByStatus() {
-  console.log("Getting all the todos.");
-
-  var HttpThingy = new HttpClient();
-  HttpThingy.get("/api/todos?status=" +  document.getElementById("status").value, function(returned_json){
-    document.getElementById('jsonDump').innerHTML = returned_json;
-  });
-}
-
-function getAllTodosByContains() {
-  console.log("Getting all the todos.");
-
-  var HttpThingy = new HttpClient();
-  HttpThingy.get("/api/todos?contains=" +  document.getElementById("contains").value, function(returned_json){
-    document.getElementById('jsonDump').innerHTML = returned_json;
-  });
-}
-
-function getAllTodosByOwner() {
-  console.log("Getting all the todos.");
-
-  var HttpThingy = new HttpClient();
-  HttpThingy.get("/api/todos?owner=" +  document.getElementById("owner").value, function(returned_json){
-    document.getElementById('jsonDump').innerHTML = returned_json;
-  });
-}
-
-function getAllTodosByCategory() {
-  console.log("Getting all the todos.");
-
-  var HttpThingy = new HttpClient();
-  HttpThingy.get("/api/todos?category=" +  document.getElementById("category").value, function(returned_json){
-    document.getElementById('jsonDump').innerHTML = returned_json;
-  });
-}
-
-function getAllTodosByOrder() {
-  console.log("Getting all the todos.");
-
-  var HttpThingy = new HttpClient();
-  HttpThingy.get("/api/todos?orderBy=" +  document.getElementById("orderBy").value, function(returned_json){
-    document.getElementById('jsonDump').innerHTML = returned_json;
-  });
-}
-
 
 function getAllTodosByFilter() {
   console.log("Getting all the todos.");
@@ -144,10 +90,10 @@ function getAllTodosByFilter() {
     }
   }
 
-  else{
-    todoURL = todoURL;
-    beFiltered = true;
-  }
+  var HttpThingy = new HttpClient();
+  HttpThingy.get(todoURL, function(returned_json){
+    document.getElementById('jsonDump').innerHTML = returned_json;
+  });
 
 
 }

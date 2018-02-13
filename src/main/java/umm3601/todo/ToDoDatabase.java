@@ -74,13 +74,8 @@ public class ToDoDatabase {
 
     // Filter status if defined
     if(queryParams.containsKey("status")) {
-      Boolean targetstatus;
-      if(queryParams.get("status")[0] == "complete"){
-        targetstatus = true;
-      }else{
-        targetstatus = false;
-      }
-      filteredTodos = filterTodosByStatus(filteredTodos, targetstatus);
+      String targetStatus = queryParams.get("status")[0];
+      filteredTodos = filterToDosByStatus(filteredTodos, targetStatus);
     }
 
     // Filter bodies if have key words
@@ -163,14 +158,21 @@ public class ToDoDatabase {
   /***
    * Get an array of all the to do users having the target status.
    * @param todos
-   * @param targetstatus
+   * @param targetStatus
    * @return an array of all the to do users from the given list that have
    * the target status
    */
-  public Todo[] filterTodosByStatus(Todo[] todos, Boolean targetstatus){
-    return Arrays.stream(todos).filter(x -> x.status == targetstatus).toArray(Todo[]::new);
-  }
+  public Todo[] filterToDosByStatus(Todo[] todos, String targetStatus) {
+    if (targetStatus.equals("complete")) {
+      return Arrays.stream(todos).filter(x -> x.status == true).toArray(Todo[]::new);
 
+    }
+    if (targetStatus.equals("incomplete")) {
+      return Arrays.stream(todos).filter(x -> x.status == false).toArray(Todo[]::new);
+    }
+
+    return Arrays.stream(todos).filter(x -> x.status == true).toArray(Todo[]::new);
+  }
   /**
    * Get an array of all the to do users having the keywords.
    * @param todos

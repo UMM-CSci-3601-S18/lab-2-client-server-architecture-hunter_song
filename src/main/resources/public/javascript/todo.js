@@ -147,7 +147,6 @@ function getAllTodosByFilter() {
   else{
     todoURL = todoURL;
     beFiltered = true;
-
   }
 
 

@@ -74,13 +74,8 @@ public class ToDoDatabase {
 
     // Filter status if defined
     if(queryParams.containsKey("status")) {
-      Boolean targetstatus;
-      if(queryParams.get("status")[0] == "complete"){
-        targetstatus = true;
-      }else{
-        targetstatus = false;
-      }
-      filteredTodos = filterTodosByStatus(filteredTodos, targetstatus);
+      String targetStatus = queryParams.get("status")[0];
+      filteredTodos = filterToDosByStatus(filteredTodos, targetStatus);
     }
 
     // Filter bodies if have key words
@@ -91,16 +86,16 @@ public class ToDoDatabase {
 
     // Sorts the returned to-dos alphabetically
     if(queryParams.containsKey("orderBy")){
-      if(queryParams.get("orderBy")[0] == "owner"){ //sorted by owner
+      if(queryParams.get("orderBy")[0].equals("owner")){ //sorted by owner
         Arrays.sort(filteredTodos, new TodoByOwner());
       }
-      if(queryParams.get("orderBy")[0] == "body"){ //sorted by body
+      if(queryParams.get("orderBy")[0].equals("body")){ //sorted by body
         Arrays.sort(filteredTodos, new TodoByBody());
       }
-      if(queryParams.get("orderBy")[0] == "status"){ //sorted by status
+      if(queryParams.get("orderBy")[0].equals("status")){ //sorted by status
         Arrays.sort(filteredTodos, new TodoByStatus());
       }
-      if(queryParams.get("orderBy")[0] == "category"){ //sorted by category
+      if(queryParams.get("orderBy")[0].equals("category")){ //sorted by category
         Arrays.sort(filteredTodos, new TodoByCategory());
       }
     }
@@ -144,7 +139,7 @@ public class ToDoDatabase {
    */
 
   public Todo[] filterTodosByOwner(Todo[] todos, String targetowner) {
-    return Arrays.stream(todos).filter(x -> x.owner == targetowner).toArray(Todo[]::new);
+    return Arrays.stream(todos).filter(x -> x.owner.equals( targetowner)).toArray(Todo[]::new);
   }
 
   /**
@@ -157,20 +152,27 @@ public class ToDoDatabase {
    */
 
   public Todo[] filterTodosByCategory(Todo[] todos, String targetcategory) {
-    return Arrays.stream(todos).filter(x -> x.owner == targetcategory).toArray(Todo[]::new);
+    return Arrays.stream(todos).filter(x -> x.category.contains(targetcategory)).toArray(Todo[]::new);
   }
 
   /***
    * Get an array of all the to do users having the target status.
    * @param todos
-   * @param targetstatus
+   * @param targetStatus
    * @return an array of all the to do users from the given list that have
    * the target status
    */
-  public Todo[] filterTodosByStatus(Todo[] todos, Boolean targetstatus){
-    return Arrays.stream(todos).filter(x -> x.status == targetstatus).toArray(Todo[]::new);
-  }
+  public Todo[] filterToDosByStatus(Todo[] todos, String targetStatus) {
+    if (targetStatus.equals("complete")) {
+      return Arrays.stream(todos).filter(x -> x.status == true).toArray(Todo[]::new);
 
+    }
+    if (targetStatus.equals("incomplete")) {
+      return Arrays.stream(todos).filter(x -> x.status == false).toArray(Todo[]::new);
+    }
+
+    return Arrays.stream(todos).filter(x -> x.status == true).toArray(Todo[]::new);
+  }
   /**
    * Get an array of all the to do users having the keywords.
    * @param todos

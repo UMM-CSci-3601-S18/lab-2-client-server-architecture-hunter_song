@@ -13,10 +13,11 @@ import static junit.framework.TestCase.assertEquals;
 
 
 public class GetToDoWithLimit {
+
   @Test
-  public void totalUserCount() throws IOException {
+  public void toDoWithLimit() throws IOException {
     ToDoDatabase db = new ToDoDatabase("src/main/data/todos.json");
-    Todo[] allTodos = db.listTodos(new HashMap<>());
-    Assert.assertEquals("Incorrect total number of users", 300, allTodos.length);
+    Todo[] listTodos = db.listTodos(new HashMap<>());
+    Assert.assertEquals("Incorrect total number of todos", 300, listTodos.length);
   }
 }
